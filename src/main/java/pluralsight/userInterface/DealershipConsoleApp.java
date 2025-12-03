@@ -8,7 +8,9 @@ import pluralsight.persistance.LeaseContractDao;
 import pluralsight.persistance.SalesContractDao;
 import pluralsight.persistance.VehicleDao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DealershipConsoleApp {
 
@@ -95,39 +97,25 @@ public class DealershipConsoleApp {
 
     }
 
-    //SELL OR LEASE VEHICLE
-    private void processSellLeaseVehicleMenu() {
-        System.out.println("Would you like to sell a Vehicle or Lease?");
-        System.out.println("1. Sell ");
-        System.out.println("2. Lease ");
-        System.out.println("3. Exit ");
 
-        int userChoice = InputCollector.promptForInt("Enter a command");
 
-        while(true){
-            switch (userChoice){
-                case 1:
-                    SalesContractDao.makeSalesContract();
-                    return;
-                case 2:
-                    LeaseContractDao.makeLeaseContract();
-                    return;
-                case 3:
-                    return;
-                default:
-                    System.out.println("Invalid entry");
-                    return;
-            }
-        }
-    }
-
+    //VEHICLE METHODS
     public void processGetByPriceRequest() {
-        System.out.println("What is the minimum and maximum price?");
-        double minPrice = InputCollector.promptForDouble("Enter minimum price");
-        double maxPrice = InputCollector.promptForDouble("Enter maximum price");
 
-        ArrayList<Vehicle> vehiclesByPrice = vehicleDao.getVehiclesByPrice(minPrice,maxPrice);
-        vehicleDao.displayVehiclesHelper(vehiclesByPrice);
+        try{
+
+            System.out.println("What is the minimum and maximum price?");
+            double minPrice = InputCollector.promptForDouble("Enter minimum price");
+            double maxPrice = InputCollector.promptForDouble("Enter maximum price");
+
+            ArrayList<Vehicle> vehiclesByPrice = vehicleDao.getVehiclesByPrice(minPrice,maxPrice);
+            vehicleDao.displayVehiclesHelper(vehiclesByPrice);
+
+        }catch(SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public  void processGetByMakeModelRequest() {
@@ -213,38 +201,66 @@ public class DealershipConsoleApp {
         String color = InputCollector.promptForString("What is the color of the vehicle");
         int odometer = InputCollector.promptForInt("What is the mileage of the vehicle");
         double price = InputCollector.promptForDouble("What is your asking price for the vehicle");
+        int sold = InputCollector.promptForInt("Enter 0 if not Sold , Enter 1 if sold");
+        String date = String.valueOf(InputCollector.promptForDate("What is the Date it was acquired? "));
 
-        System.out.println("Vehicle ");
-        //        Vehicle vehicleToAdd = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price);
-//        dealership.addVehicle(vehicleToAdd);
+        vehicleDao.addVehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,date);
 
-        DealershipFileManager dealershipFileManager = new DealershipFileManager();
-        dealershipFileManager.saveDealership(dealership);
+
+//        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+//        dealershipFileManager.saveDealership(dealership);
 
     }
 
     public void processRemoveVehicleRequest() {
 
         //Put in the information of the vehicle we want to remove
-        int VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
-
-        boolean found = false;
-
-        for(Vehicle v : dealership.getAllVehicles()){
-            if(VIN == v.getVIN()){
-                found = true;
-                dealership.remove(v);
-                System.out.println("Vehicle Removed!");
-                this.dealershipFileManager.saveDealership(dealership);
-                break;
-            }
-        }
-
-        if( found == false){
-            System.out.println("Could not find that Vehicles VIN");
-        }
+//        int VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
+//
+//        boolean found = false;
+//
+//        for(Vehicle v : vehicleDao.getAllVehicles()){
+//            if(VIN == v.getVIN()){
+//                found = true;
+//                dealership.remove(v);
+//                System.out.println("Vehicle Removed!");
+//                this.dealershipFileManager.saveDealership(dealership);
+//                break;
+//            }
+//        }
+//
+//        if( found == false){
+//            System.out.println("Could not find that Vehicles VIN");
+//        }
     }
 
 
+
+
+    //SELL OR LEASE VEHICLE
+    private void processSellLeaseVehicleMenu() {
+        System.out.println("Would you like to sell a Vehicle or Lease?");
+        System.out.println("1. Sell ");
+        System.out.println("2. Lease ");
+        System.out.println("3. Exit ");
+
+        int userChoice = InputCollector.promptForInt("Enter a command");
+
+        while(true){
+            switch (userChoice){
+                case 1:
+                    SalesContractDao.makeSalesContract();
+                    return;
+                case 2:
+                    LeaseContractDao.makeLeaseContract();
+                    return;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid entry");
+                    return;
+            }
+        }
+    }
 
 }

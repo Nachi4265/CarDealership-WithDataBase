@@ -7,8 +7,6 @@ import pluralsight.persistance.LeaseContractDao;
 import pluralsight.persistance.SalesContractDao;
 import pluralsight.persistance.VehicleDao;
 import pluralsight.userInterface.DealershipConsoleApp;
-import pluralsight.userInterface.UserInterface;
-
 import java.sql.SQLException;
 
 public class Main {

@@ -19,40 +19,40 @@ public class LeaseContractDao {
         System.out.println("---------------------------------");
 
         //Display all Vehicles
-        displayVehiclesHelper(dealership.getAllVehicles());
+//        VehicleDao.displayVehiclesHelper();
 
 
-        int vin = InputCollector.promptForInt("Enter vehicle VIN you want to sell: ");
-        Vehicle foundVehicle = null;
-
-        // loop through inventory to find VIN
-        for (Vehicle v : dealership.getAllVehicles()){
-
-            if (v.getVIN() == vin) {
-                foundVehicle = v;
-                break;
-            }
-        }
-
-        if (foundVehicle != null) {
-            System.out.println("Vehicle found: " + foundVehicle);
-            String contractDate  = InputCollector.promptForString("Enter Contract Date (YYYY-mm-dd)");
-            String contractName  = InputCollector.promptForString("Enter customer name");
-            String contractEmail = InputCollector.promptForString("Enter email (SomeExample@gmail.com)");
-
-            // Make contract
-//            LeaseContract leaseContract = new LeaseContract(contractDate, contractName, contractEmail, foundVehicle);
-//            System.out.println("Lease contract created successfully for " + contractName + "!");
-
-            // Make Contract Data Manager
-            ContractDataManager contractDataManager = new ContractDataManager();
-
-//            contractDataManager.saveContract(leaseContract);
-            dealership.remove(foundVehicle);
-
-            DealershipFileManager dealershipFileManager = new DealershipFileManager();
-            dealershipFileManager.saveDealership(dealership);
-        }
+//        int vin = InputCollector.promptForInt("Enter vehicle VIN you want to sell: ");
+//        Vehicle foundVehicle = null;
+//
+//        // loop through inventory to find VIN
+//        for (Vehicle v : dealership.getAllVehicles()){
+//
+//            if (v.getVIN() == vin) {
+//                foundVehicle = v;
+//                break;
+//            }
+//        }
+//
+//        if (foundVehicle != null) {
+//            System.out.println("Vehicle found: " + foundVehicle);
+//            String contractDate  = InputCollector.promptForString("Enter Contract Date (YYYY-mm-dd)");
+//            String contractName  = InputCollector.promptForString("Enter customer name");
+//            String contractEmail = InputCollector.promptForString("Enter email (SomeExample@gmail.com)");
+//
+//            // Make contract
+////            LeaseContract leaseContract = new LeaseContract(contractDate, contractName, contractEmail, foundVehicle);
+////            System.out.println("Lease contract created successfully for " + contractName + "!");
+//
+//            // Make Contract Data Manager
+//            ContractDataManager contractDataManager = new ContractDataManager();
+//
+////            contractDataManager.saveContract(leaseContract);
+//            dealership.remove(foundVehicle);
+//
+//            DealershipFileManager dealershipFileManager = new DealershipFileManager();
+//            dealershipFileManager.saveDealership(dealership);
+//        }
 
     }
 

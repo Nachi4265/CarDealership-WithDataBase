@@ -64,9 +64,21 @@ public class InputCollector {
     }
 
     public static long promptForLong(String prompt){
-        System.out.print(prompt + ": ");
-        long result = scanner.nextLong();
-        scanner.nextLine();
+        boolean Num = false;
+        long result = 0;
+        do{
+            try{
+                System.out.print(prompt + ": ");
+                result = scanner.nextInt();
+                scanner.nextLine();
+                Num = true;
+            }
+            catch(Exception ex){
+                scanner.nextLine();
+                System.out.println("Invalid Entry, please enter a whole number");
+            }
+        } while (!Num);
+
         return result;
     }
 

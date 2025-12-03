@@ -14,11 +14,11 @@ public class Vehicle {
     private int odometer;
     private double price;
     private int sold;
-    private Date saleDate;
+    private String saleDate;
 
 
     //CONSTRUCTOR
-    public Vehicle(int VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price,int sold , Date saleDate) {
+    public Vehicle(int VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price,int sold , String saleDate) {
         this.VIN = VIN;
         this.year = year;
         this.make = make;
@@ -106,11 +106,11 @@ public class Vehicle {
         this.sold = sold;
     }
 
-    public Date getSaleDate() {
+    public String getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(Date saleDate) {
+    public void setSaleDate(String saleDate) {
         this.saleDate = saleDate;
     }
 
