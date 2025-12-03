@@ -1,4 +1,7 @@
 package pluralsight.models;
+
+import java.util.Date;
+
 public class Vehicle {
 
     //Private class variables
@@ -10,10 +13,12 @@ public class Vehicle {
     private String color;
     private int odometer;
     private double price;
+    private int sold;
+    private Date saleDate;
 
 
     //CONSTRUCTOR
-    public Vehicle(int VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(int VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price,int sold , Date saleDate) {
         this.VIN = VIN;
         this.year = year;
         this.make = make;
@@ -22,6 +27,8 @@ public class Vehicle {
         this.color = color;
         this.odometer = odometer;
         this.price = price;
+        this.sold = sold;
+        this.saleDate = saleDate;
     }
 
 
@@ -91,16 +98,34 @@ public class Vehicle {
         this.price = price;
     }
 
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public Date getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
+    }
+
     @Override
     public String toString() {
         return  getVIN()
-                + " | " +getYear()
-                + " | " +getMake()
-                + " | " +getModel()
-                + " | " +getVehicleType()
-                + " | " +getColor()
-                + " | " +getOdometer()
-                + " | " + getPrice();
+                + " | " + getYear()
+                + " | " + getMake()
+                + " | " + getModel()
+                + " | " + getVehicleType()
+                + " | " + getColor()
+                + " | " + getOdometer()
+                + " | " + getPrice()
+                + " | " + getSold()
+                + " | " + getSaleDate();
     }
 
 }

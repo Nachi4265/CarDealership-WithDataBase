@@ -4,6 +4,7 @@ import pluralsight.userInterface.LoanCalculator;
 
 public class SalesContract extends Contract {
 
+    private int contractID;
     private String contractType;
     private double salesTax;
     private double recordingFee;
@@ -55,6 +56,22 @@ public class SalesContract extends Contract {
         this.finance = finance;
     }
 
+    public int getContractID() {
+        return contractID;
+    }
+
+    public void setContractID(int contractID) {
+        this.contractID = contractID;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
     @Override public double getMonthlyPayment(){
         //• All loans are at 4.25% for 48 months if the price is $10,000 or more
         //• Otherwise they are at 5.25% for 24 month
@@ -84,4 +101,5 @@ public class SalesContract extends Contract {
             // $295 or 495 + $100 + 5% of Vehicles price + Vehicles actual Price
         return processingFee + recordingFee + salesTax + getVehicleSold().getPrice();
     }
+
 }

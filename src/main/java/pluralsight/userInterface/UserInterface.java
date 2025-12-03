@@ -15,9 +15,6 @@ public class UserInterface {
     //Class level variable so all methods can access it
     Dealership dealership;
     DealershipFileManager dealershipFileManager;
-//    AdminUserInterface adminUserInterface;
-
-
 
     //User Interface Constructor that should get our dealership
     public UserInterface(){
@@ -29,8 +26,6 @@ public class UserInterface {
         //Our Class level variable is assigned to our Dealership File Manager which gets our dealership info
         this.dealership =  dealershipFileManager.getDealership();
     }
-
-
 
     //How our user menu is display
     public void display(){
@@ -49,7 +44,6 @@ public class UserInterface {
             8 - Add a vehicle\n
             9 - Remove a vehicle\n
             10- Sell/Lease Vehicle\n
-            11- Admin Menu\n
             99 - Quit
             """;
 
@@ -88,9 +82,6 @@ public class UserInterface {
                 case 10:
                     processSellLeaseVehicleMenu();
                     break;
-                case 11:
-                    adminMenu();
-                    break;
                 case 99:
                     System.exit(0);
                     break;
@@ -101,21 +92,12 @@ public class UserInterface {
         }
     }
 
-    private void adminMenu() {
-//        adminUserInterface = new AdminUserInterface();
-//
-//        adminUserInterface.adminDisplay();
-//        adminUserInterface.enterPassword();
-    }
-
-
     //a private displayVehicles() helper method.  Because you will be
     //displaying many different lists of vehicles, it makes sense to have a helper
     //method that displays the list and can be called from all the get-vehicles
     //type methods.  This method should have a parameter that is passed in
     //containing the vehicles to list.  Within the method, create a loop and
     //display the vehicles!
-
     private void displayVehiclesHelper(ArrayList<Vehicle>vehicleToList){
         for(Vehicle v : vehicleToList){
             System.out.println(

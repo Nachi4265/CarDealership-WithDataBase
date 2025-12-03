@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dealership {
+    private int ID;
     private String name;
     private String address;
     private String phone;
@@ -12,7 +13,8 @@ public class Dealership {
 
 
     //CONSTRUCTOR
-    public Dealership(String name, String address, String phone) {
+    public Dealership(int ID, String name, String address, String phone) {
+        this.ID = ID;
         this.inventory = new ArrayList<>();
         this.name = name;
         this.address = address;
@@ -46,8 +48,13 @@ public class Dealership {
         this.phone = phone;
     }
 
+    public int getID() {
+        return ID;
+    }
 
-
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
 
     //METHODS
