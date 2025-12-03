@@ -42,7 +42,7 @@ public class DealershipFileManager {
 
             //Our dealership is made!
             //Our name , Address and phone number are then passed into it.
-            dealershipFromFile = new Dealership(dealershipName, dealershipAddress, dealershipPhoneNum);
+//            dealershipFromFile = new Dealership(dealershipName, dealershipAddress, dealershipPhoneNum);
 
 
             //Now we need to loop through each line of the rest of our file and make vehicles from it.
@@ -61,10 +61,10 @@ public class DealershipFileManager {
                 double price = Double.parseDouble(inventoryParts[7]);
 
                 //Using the information from above we are going to make a vehicle and add it to our dealership
-                Vehicle vehicleFromInventory = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price);
+//                Vehicle vehicleFromInventory = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price);
 
                 //Add our vehicle to our inventory
-                dealershipFromFile.addVehicle(vehicleFromInventory);
+//                dealershipFromFile.addVehicle(vehicleFromInventory);
 
             }
             bufferedReader.close();
