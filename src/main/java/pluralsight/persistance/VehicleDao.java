@@ -18,7 +18,7 @@ public class VehicleDao {
         this.dataSource = dataSource;
     }
 
-    public static void displayVehiclesHelper(ArrayList<Vehicle> vehicleToList){
+    public void displayVehiclesHelper(ArrayList<Vehicle> vehicleToList){
 //        for(Vehicle v : vehicleToList){
 //            System.out.println(
 //                    v.getVIN()
@@ -327,9 +327,11 @@ public class VehicleDao {
             int rows = preparedStatement.executeUpdate();
             System.out.printf("Rows updated %d\n", rows);
 
+            System.out.println(" ✓ VEHICLE REMOVED ! ");
+
         }
     }
-
+    
     public void addVehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold) throws SQLException {
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold)\n" +
@@ -351,6 +353,9 @@ public class VehicleDao {
 
             //confirm update
             System.out.printf("Rows updated %d\n ",rows);
+
+            System.out.println(" ✓ VEHICLE SAVED! ");
+
         }
     }
 }

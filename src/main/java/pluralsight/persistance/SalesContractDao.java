@@ -1,62 +1,77 @@
 package pluralsight.persistance;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import pluralsight.data.ContractDataManager;
-import pluralsight.data.DealershipFileManager;
 import pluralsight.models.SalesContract;
 import pluralsight.models.Vehicle;
 import pluralsight.userInterface.InputCollector;
+import pluralsight.userInterface.LoanCalculator;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SalesContractDao {
 
+    private SalesContract salesContract;
     private BasicDataSource dataSource;
+    private VehicleDao vehicleDao;
 
     public SalesContractDao(BasicDataSource dataSource) {
         this.dataSource =  dataSource;
+        this.vehicleDao = vehicleDao;
+        this.salesContract = salesContract;
     }
 
-    public static void makeSalesContract() {
+    public void SalesContract(String vin) throws SQLException {
 
-//        System.out.println("HERE IS A FULL LIST OF VEHICLES!");
-//        System.out.println("---------------------------------");
-//
-//        //Display all Vehicles
-//        vehicleDao.displayVehiclesHelper(.getAllVehicles());
-//
-//        int vin = InputCollector.promptForInt("Enter vehicle VIN you want to sell: ");
-//        Vehicle foundVehicle = null;
-//
-//        // loop through inventory to find VIN
-//        for (Vehicle v : DealershipDao.getAllVehicles()){
-//
-//            if (v.getVIN() == vin) {
-//                foundVehicle = v;
-//                break;
-//            }
-//        }
-//
-//        if (foundVehicle != null) {
-//            System.out.println("Vehicle found: " + foundVehicle);
-//            String contractDate  = InputCollector.promptForString("Enter Contract Date (YYYY-mm-dd)");
-//            String contractName  = InputCollector.promptForString("Enter customer name");
-//            String contractEmail = InputCollector.promptForString("Enter email (SomeExample@gmail.com)");
-//            String financeOption = InputCollector.promptForString("Would you like to finance? (Y/N)");
-//            boolean isFinanced = financeOption.equalsIgnoreCase("yes") ? true : false;
-//
-//            // Make contract
-//            SalesContract salesContract = new SalesContract(contractDate,contractName,contractEmail,foundVehicle,isFinanced);
-//            System.out.println("Sales contract created successfully for " + contractName + "!");
-//
-//            // Make Contract Data Manager
-//            ContractDataManager contractDataManager = new ContractDataManager();
-//
-//            contractDataManager.saveContract(salesContract);
-//            dealership.remove(foundVehicle);
-//
-//            DealershipFileManager dealershipFileManager = new DealershipFileManager();
-//            dealershipFileManager.saveDealership(dealership);
-//        }
+        try{
+            //Display all Vehicles
+            vehicleDao.getAllVehicles();
 
+            Vehicle foundVehicle = null;
+
+            //loop through inventory to find VIN
+            for (Vehicle v : vehicleDao.getAllVehicles()){
+
+                if (v.getVIN() == vin) {
+                    foundVehicle = v;
+                    break;
+                }
+            }
+
+            if (foundVehicle != null) {
+
+            String vehicleVin = foundVehicle.getVIN();
+            String contractType = "SALE";
+            double salesTax = salesContract.getSalesTax();
+            double recordingFee = salesContract.getRecordingFee();
+            double processingFee = salesContract.getProcessingFee();
+            int isFinanced = InputCollector.promptForInt("Would you like to finance (1 = yes / 0 = no ");
+
+                try(Connection connection = dataSource.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO salescontract (contract_id, VIN , contractType , salesTax , recordingFee , processingFee , financed" +
+                            " VALUES( ? , ? , ? , ? , ? , ? , ? ) ");
+                ){
+
+                    preparedStatement.setString(1, vehicleVin);
+                    preparedStatement.setString(2, contractType);
+                    preparedStatement.setDouble(3, salesTax);
+                    preparedStatement.setDouble(4, recordingFee);
+                    preparedStatement.setDouble(5, processingFee);
+                    preparedStatement.setInt(6, isFinanced);
+
+                    //execute the query
+                    int rows  = preparedStatement.executeUpdate();
+
+                    System.out.println(" ✓ Sales Contract saved!");
+
+                    //confirm update
+                    System.out.printf("Rows updated %d\n ",rows);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("There was a SQL error: " + e.getMessage());
+        }
     }
 
 }

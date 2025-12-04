@@ -66,7 +66,7 @@ public class Main {
 
         // Test the connection
         try (Connection connection = basicDataSource.getConnection()) {
-            System.out.println("Database connection successful!");
+            System.out.println(" ✓ Database connection successful! ");
             System.out.println("Connected to: " + connection.getCatalog());
         } catch (SQLException e) {
             System.err.println("\n DATABASE CONNECTION FAILED!");

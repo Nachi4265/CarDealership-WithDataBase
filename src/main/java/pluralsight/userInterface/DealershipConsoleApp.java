@@ -1,7 +1,6 @@
 package pluralsight.userInterface;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import pluralsight.data.DealershipFileManager;
 import pluralsight.models.Vehicle;
 import pluralsight.persistance.DealershipDao;
 import pluralsight.persistance.LeaseContractDao;
@@ -98,7 +97,7 @@ public class DealershipConsoleApp {
 
 
     //VEHICLE METHODS
-    public void processGetByPriceRequest() {
+    private void processGetByPriceRequest() {
 
         try{
 
@@ -116,7 +115,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public  void processGetByMakeModelRequest()  {
+    private void processGetByMakeModelRequest()  {
 
 
         try{
@@ -136,7 +135,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public  void processGetByYearRequest() {
+    private void processGetByYearRequest() {
 
         try{
 
@@ -153,7 +152,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public  void processGetByColorRequest() {
+    private void processGetByColorRequest() {
 
         try{
             System.out.println("What vehicle color you are looking for?");
@@ -170,7 +169,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public void processGetByMileageRequest() {
+    private void processGetByMileageRequest() {
 
         try{
 
@@ -188,7 +187,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public void processGetByVehicleTypeRequest() {
+    private void processGetByVehicleTypeRequest() {
 
         try{
 
@@ -221,7 +220,7 @@ public class DealershipConsoleApp {
 //                System.out.println(results);
     }
 
-    public void processGetByGetAllVehicleRequest() {
+    private void processGetByGetAllVehicleRequest() {
         try{
 
             vehicleDao.displayVehiclesHelper(vehicleDao.getAllVehicles());
@@ -235,7 +234,7 @@ public class DealershipConsoleApp {
 
 
     //Add and remove request
-    public void processAddVehicleRequest() {
+    private void processAddVehicleRequest() {
 
         try{
 
@@ -262,7 +261,7 @@ public class DealershipConsoleApp {
 
     }
 
-    public void processRemoveVehicleRequest() {
+    private void processRemoveVehicleRequest() {
 
         try{
 
@@ -297,10 +296,10 @@ public class DealershipConsoleApp {
         while(true){
             switch (userChoice){
                 case 1:
-                    SalesContractDao.makeSalesContract();
+                    makeSalesContract();
                     return;
                 case 2:
-                    LeaseContractDao.makeLeaseContract();
+                    LeaseContract();
                     return;
                 case 3:
                     return;
@@ -310,5 +309,46 @@ public class DealershipConsoleApp {
             }
         }
     }
+
+    private void makeSalesContract() {
+
+        try{
+
+            System.out.println("HERE IS A FULL LIST OF VEHICLES!");
+            System.out.println("---------------------------------");
+            vehicleDao.getAllVehicles();
+            System.out.println("---------------------------------");
+
+            String vin = InputCollector.promptForString("Enter vehicle VIN you want to sell: ");
+
+            salesContractDao.SalesContract(vin);
+
+        }catch (SQLException e ){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void LeaseContract() {
+
+        try{
+
+            System.out.println("HERE IS A FULL LIST OF VEHICLES!");
+            System.out.println("---------------------------------");
+            vehicleDao.getAllVehicles();
+            System.out.println("---------------------------------");
+
+            String vin = InputCollector.promptForString(" Enter vehicle VIN you want to lease : ");
+
+            salesContractDao.SalesContract(vin);
+
+        }catch (SQLException e ){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }
