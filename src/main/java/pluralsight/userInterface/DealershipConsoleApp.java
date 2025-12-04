@@ -29,7 +29,7 @@ public class DealershipConsoleApp {
         this.vehicleDao = vehicleDao;
     }
 
-    public void start(){
+    public void start() throws SQLException {
 
         System.out.println("==WELCOME TO CAR DEALERSHIP==");
         System.out.println();
@@ -118,53 +118,94 @@ public class DealershipConsoleApp {
 
     }
 
-    public  void processGetByMakeModelRequest() {
-        System.out.println("What is the Make and Model you are looking for?");
-        String make = InputCollector.promptForString("Enter Make");
-        String model = InputCollector.promptForString("Enter Model");
+    public  void processGetByMakeModelRequest()  {
 
-        ArrayList<Vehicle>vehiclesByMakeModel = vehicleDao.getVehiclesByMakeModel(make,model);
-        vehicleDao.displayVehiclesHelper(vehiclesByMakeModel);
 
-        //what you want to stream
-//        ArrayList<Vehicle>makeAndModel = vehiclesByMakeModel.stream(),.filter( Vehicle -> make,model)
+        try{
+
+            System.out.println("What is the Make and Model you are looking for?");
+            String make = InputCollector.promptForString("Enter Make");
+            String model = InputCollector.promptForString("Enter Model");
+
+            ArrayList<Vehicle>vehiclesByMakeModel = vehicleDao.getVehiclesByMakeModel(make,model);
+            vehicleDao.displayVehiclesHelper(vehiclesByMakeModel);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
+
     }
 
     public  void processGetByYearRequest() {
-        System.out.println("What is the year you are looking for?");
-        int minYear = InputCollector.promptForInt("Enter Minimum Year (YYYY)");
-        int maxYear = InputCollector.promptForInt("Enter Maximum Year (YYYY)");
 
-        ArrayList<Vehicle>vehiclesByYear = vehicleDao.getVehiclesByYear(minYear,maxYear);
-        vehicleDao.displayVehiclesHelper(vehiclesByYear);
+        try{
+
+            System.out.println("What is the year you are looking for?");
+            int minYear = InputCollector.promptForInt("Enter Minimum Year (YYYY)");
+            int maxYear = InputCollector.promptForInt("Enter Maximum Year (YYYY)");
+
+            ArrayList<Vehicle>vehiclesByYear = vehicleDao.getVehiclesByYear(minYear,maxYear);
+            vehicleDao.displayVehiclesHelper(vehiclesByYear);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();}
+
     }
 
     public  void processGetByColorRequest() {
-        System.out.println("What vehicle color you are looking for?");
-        String color = InputCollector.promptForString("Enter color");
 
-        ArrayList<Vehicle>vehiclesByColor = vehicleDao.getVehiclesByColor(color);
-        vehicleDao.displayVehiclesHelper(vehiclesByColor);
+        try{
+            System.out.println("What vehicle color you are looking for?");
+            String color = InputCollector.promptForString("Enter color");
+
+            ArrayList<Vehicle>vehiclesByColor = vehicleDao.getVehiclesByColor(color);
+            vehicleDao.displayVehiclesHelper(vehiclesByColor);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
 
 
-    }//todo add ignore case
+    }
 
-    public  void processGetByMileageRequest() {
-        System.out.println("What vehicle mileage you are looking for?");
-        int minMileage = InputCollector.promptForInt("Enter minimum mileage");
-        int maxMileage = InputCollector.promptForInt("Enter maximum mileage");
+    public void processGetByMileageRequest() {
 
-        ArrayList<Vehicle>vehiclesByMileage = vehicleDao.getVehiclesByMileage(minMileage, maxMileage);
-        vehicleDao.displayVehiclesHelper(vehiclesByMileage);
+        try{
+
+            System.out.println("What vehicle mileage you are looking for?");
+            int minMileage = InputCollector.promptForInt("Enter minimum mileage");
+            int maxMileage = InputCollector.promptForInt("Enter maximum mileage");
+
+            ArrayList<Vehicle>vehiclesByMileage = vehicleDao.getVehiclesByMileage(minMileage, maxMileage);
+            vehicleDao.displayVehiclesHelper(vehiclesByMileage);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public void processGetByVehicleTypeRequest() {
-        System.out.println("What Type of vehicle are you searching for?");
-        String vehicleType = InputCollector.promptForString("Enter vehicle type").toUpperCase();
 
-        //this is our Array list of Vehicles by type
-        ArrayList<Vehicle>vehiclesByType = vehicleDao.getVehiclesByType(vehicleType);
-        vehicleDao.displayVehiclesHelper(vehiclesByType);
+        try{
+
+            System.out.println("What Type of vehicle are you searching for?");
+            String vehicleType = InputCollector.promptForString("Enter vehicle type").toUpperCase();
+
+            //this is our Array list of Vehicles by type
+            ArrayList<Vehicle>vehiclesByType = vehicleDao.getVehiclesByType(vehicleType);
+            vehicleDao.displayVehiclesHelper(vehiclesByType);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
 
 
 //        //LAMBDA EXPRESSION
@@ -186,25 +227,45 @@ public class DealershipConsoleApp {
     }
 
     public void processGetByGetAllVehicleRequest() {
-        vehicleDao.displayVehiclesHelper(vehicleDao.getAllVehicles());
+        try{
+
+            vehicleDao.displayVehiclesHelper(vehicleDao.getAllVehicles());
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
 
 
     //Add and remove request
     public void processAddVehicleRequest() {
-        int VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
-        int year = InputCollector.promptForInt("What is the Year of your vehicle");
-        String make = InputCollector.promptForString("What is the vehicle make?");
-        String model = InputCollector.promptForString("What is the vehicle model?");
-        String vehicleType = InputCollector.promptForString("What is the vehicle type");
-        String color = InputCollector.promptForString("What is the color of the vehicle");
-        int odometer = InputCollector.promptForInt("What is the mileage of the vehicle");
-        double price = InputCollector.promptForDouble("What is your asking price for the vehicle");
-        int sold = InputCollector.promptForInt("Enter 0 if not Sold , Enter 1 if sold");
-        String date = String.valueOf(InputCollector.promptForDate("What is the Date it was acquired? "));
 
-        vehicleDao.addVehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,date);
+        try{
+
+            System.out.println("===ENTER VEHICLE TO DEALERSHIP!===");
+
+            long VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
+            int year = InputCollector.promptForInt("What is the Year of your vehicle");
+            String make = InputCollector.promptForString("What is the vehicle make?");
+            String model = InputCollector.promptForString("What is the vehicle model?");
+            String vehicleType = InputCollector.promptForString("What is the vehicle type");
+            String color = InputCollector.promptForString("What is the color of the vehicle");
+            int odometer = InputCollector.promptForInt("What is the mileage of the vehicle");
+            double price = InputCollector.promptForDouble("What is your asking price for the vehicle");
+            int sold = InputCollector.promptForInt("Enter 0 if not Sold , Enter 1 if sold");
+            String date = String.valueOf(InputCollector.promptForDate("What is the Date it was acquired? "));
+
+            vehicleDao.addVehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,date);
+
+        }catch (SQLException e){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
+
 
 
 //        DealershipFileManager dealershipFileManager = new DealershipFileManager();

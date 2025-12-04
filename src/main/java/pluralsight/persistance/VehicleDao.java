@@ -39,7 +39,7 @@ public class VehicleDao {
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
                     //todo fix SQL statment
-                    "SELECT film.film_id, title, length, rating FROM film join film_actor on film.film_id = film_actor.film_id where film_actor.actor_id = ? ")
+                    "SELECT * FROM vehicles WHERE Price BETWEEN ? AND ?")
         ){
             preparedStatement.setDouble(1,minPrice);
             preparedStatement.setDouble(2,maxPrice);
@@ -51,7 +51,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        int VIN = result.getInt("VIN");
+                        long VIN = result.getLong("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -75,39 +75,255 @@ public class VehicleDao {
         return vehicles;
     }
 
-    public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+    public ArrayList<Vehicle> getVehiclesByMakeModel(String vehicleMake, String vehicleModel) throws SQLException {
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    //todo fix SQL statment
+                    "SELECT * FROM vehicles WHERE Make = ? AND Model = ?")
+        ){
+            preparedStatement.setString(1,vehicleMake);
+            preparedStatement.setString(2,vehicleModel);
+
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("Your matches are: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,saleDate);
+                        vehicles.add(vehicle);
+                    }
+
+                    while(result.next());
+                }else{
+                    System.out.println("no matches!");
+                }
+            }
+        }
+        return vehicles;
     }
 
-    public ArrayList<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
-        return null;
+    public ArrayList<Vehicle> getVehiclesByYear(int minYear, int maxYear) throws SQLException {
+
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+
+                    "SELECT * FROM vehicles WHERE Vehicle_year between ? AND ? ")
+        ){
+            preparedStatement.setInt(1,minYear);
+            preparedStatement.setInt(2,maxYear);
+
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("Your matches are: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,saleDate);
+                        vehicles.add(vehicle);
+                    }
+
+                    while(result.next());
+                }else{
+                    System.out.println("no matches!");
+                }
+            }
+        }
+        return vehicles;
     }
 
-    public ArrayList<Vehicle> getVehiclesByColor(String color) {
-        return null;
+    public ArrayList<Vehicle> getVehiclesByColor(String color) throws SQLException {
+
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM vehicles WHERE Color = ?")
+        ){
+            preparedStatement.setString(1, color);
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("Your matches are: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String vehicleColor = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, vehicleColor, odometer, price, sold, saleDate);
+                        vehicles.add(vehicle);
+                    }
+                    while(result.next());
+                } else {
+                    System.out.println("No matches!");
+                }
+            }
+        }
+        return vehicles;
+
     }
 
-    public ArrayList<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
-        return null;
+    public ArrayList<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) throws SQLException {
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM vehicles WHERE Odometer BETWEEN ? AND ?")
+        ){
+            preparedStatement.setInt(1, minMileage);
+            preparedStatement.setInt(2, maxMileage);
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("Your matches are: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold, saleDate);
+                        vehicles.add(vehicle);
+                    }
+                    while(result.next());
+                } else {
+                    System.out.println("No matches!");
+                }
+            }
+        }
+        return vehicles;
     }
 
-    public ArrayList<Vehicle> getVehiclesByType(String vehicleType) {
-        return null;
+    public ArrayList<Vehicle> getVehiclesByType(String vehicleType) throws SQLException {
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM vehicles WHERE UPPER(VehicleType) = UPPER(?)")
+        ){
+            preparedStatement.setString(1, vehicleType);
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("Your matches are: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String type = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, type, color, odometer, price, sold, saleDate);
+                        vehicles.add(vehicle);
+                    }
+                    while(result.next());
+                } else {
+                    System.out.println("No matches!");
+                }
+            }
+        }
+        return vehicles;
     }
 
-    public ArrayList<Vehicle> getAllVehicles() {
-        return null;
+    public ArrayList<Vehicle> getAllVehicles() throws SQLException {
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM vehicles")
+        ){
+            // No parameters needed for SELECT ALL
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+                    System.out.println("All vehicles: \n");
+
+                    do{
+                        long VIN = result.getLong("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+                        String saleDate = result.getString("saleDate");
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold, saleDate);
+                        vehicles.add(vehicle);
+                    }
+                    while(result.next());
+                } else {
+                    System.out.println("No vehicles in inventory!");
+                }
+            }
+        }
+        return vehicles;
     }
 
 
     //todo fix connection
-    public void addVehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold, String saleDate) {
+    public void addVehicle(long vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold, String saleDate) throws SQLException {
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold, saleDate)\n" +
                     "VALUES( ?, ? , ? , ? , ? , ? , ? , ? , ? );");
         ){
 
-            preparedStatement.setInt(1, vin);
+            preparedStatement.setLong(1, vin);
             preparedStatement.setInt(2, year);  // Assuming this is Vehicle_Year
             preparedStatement.setString(3, make);
             preparedStatement.setString(4, model);
@@ -126,10 +342,7 @@ public class VehicleDao {
             //confirm update
             System.out.printf("Rows updated %d\n ",rows);
         }
-        catch (SQLException e){
-            System.out.println("There was an error: " +  e.getMessage());
-            e.printStackTrace();
-        }
+
 
     }
 }

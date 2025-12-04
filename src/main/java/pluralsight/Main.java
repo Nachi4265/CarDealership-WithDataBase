@@ -7,6 +7,8 @@ import pluralsight.persistance.LeaseContractDao;
 import pluralsight.persistance.SalesContractDao;
 import pluralsight.persistance.VehicleDao;
 import pluralsight.userInterface.DealershipConsoleApp;
+
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
@@ -47,9 +49,30 @@ public class Main {
     private static BasicDataSource getDataSource(String userName , String password , String URL) throws SQLException {
 
         BasicDataSource basicDataSource = new BasicDataSource();
+
         basicDataSource.setUrl(URL);
         basicDataSource.setUsername(userName);
         basicDataSource.setPassword(password);
+
+        // Print what we're trying to connect to (for debugging)
+        System.out.println("Attempting to connect to database...");
+        System.out.println("URL: " + URL);
+        System.out.println("Username: " + userName);
+        System.out.println("Password: " + password);
+
+        basicDataSource.setUrl(URL);
+        basicDataSource.setUsername(userName);
+        basicDataSource.setPassword(password);
+
+        // Test the connection
+        try (Connection connection = basicDataSource.getConnection()) {
+            System.out.println("✓ Database connection successful!");
+            System.out.println("Connected to: " + connection.getCatalog());
+        } catch (SQLException e) {
+            System.err.println("\n✗ DATABASE CONNECTION FAILED!");
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
         return basicDataSource;
     }
 
