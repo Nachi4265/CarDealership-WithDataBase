@@ -23,6 +23,54 @@ public class LeaseContractDao {
         this.leaseContract = leaseContract;
     }
 
+    public void leaseContract(String vin,String name, String email) throws SQLException {
+
+        try{
+
+            Vehicle foundVehicle = null;
+
+            //loop through inventory to find VIN
+            for (Vehicle v : vehicleDao.getAllVehicles()){
+
+                if (v.getVIN() == vin) {
+                    foundVehicle = v;
+                    break;
+                }
+            }
+
+            if (foundVehicle != null) {
+
+                String customerName = name;
+                String customerEmail = email;
+                String Vin = foundVehicle.getVIN();
+                double endingValue = leaseContract.getEndingValue();
+                double leaseFee = leaseContract.getLeaseFee();
+
+
+                try(Connection connection = dataSource.getConnection();
+                    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO lease_contract ( cutomerName , cutomerEmail , VIN , endingValue , leaseFee" +
+                            " VALUES( ? , ? , ? , ? , ?  ) ");
+                ){
+
+                    preparedStatement.setString(1,customerName );
+                    preparedStatement.setString(2, customerEmail);
+                    preparedStatement.setString(3, Vin);
+                    preparedStatement.setDouble(4, endingValue);
+                    preparedStatement.setDouble(5, leaseFee);
+
+                    //execute the query
+                    int rows  = preparedStatement.executeUpdate();
+
+                    System.out.println(" ✓ Lease Contract saved!");
+
+                    //confirm update
+                    System.out.printf("Rows updated %d\n ",rows);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("There was a SQL error: " + e.getMessage());
+        }
+    }
 //    public void LeaseContract(String vin , String customerName ) {
 //        try{
 //            //Display all Vehicles

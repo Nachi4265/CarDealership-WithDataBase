@@ -12,32 +12,24 @@ import java.sql.SQLException;
 
 public class SalesContractDao {
 
-    private SalesContract salesContract;
+    
     private BasicDataSource dataSource;
     private VehicleDao vehicleDao;
+    private SalesContract salesContract;
 
-    public SalesContractDao(BasicDataSource dataSource) {
+    public SalesContractDao(BasicDataSource dataSource, VehicleDao vehicleDao) {
         this.dataSource =  dataSource;
         this.vehicleDao = vehicleDao;
-        this.salesContract = salesContract;
+        
     }
 
     public void SalesContract(String vin) throws SQLException {
 
         try{
-            //Display all Vehicles
-            vehicleDao.getAllVehicles();
 
             Vehicle foundVehicle = null;
 
-            //loop through inventory to find VIN
-            for (Vehicle v : vehicleDao.getAllVehicles()){
-
-                if (v.getVIN() == vin) {
-                    foundVehicle = v;
-                    break;
-                }
-            }
+            foundVehicle = vehicleDao.getVehicleByVin(vin);
 
             if (foundVehicle != null) {
 
@@ -71,6 +63,7 @@ public class SalesContractDao {
             }
         } catch (SQLException e) {
             System.out.println("There was a SQL error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

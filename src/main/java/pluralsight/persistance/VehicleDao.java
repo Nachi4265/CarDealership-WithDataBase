@@ -315,6 +315,44 @@ public class VehicleDao {
         return vehicles;
     }
 
+    public Vehicle  getVehicleByVin(String Vin) throws SQLException {
+       Vehicle vehicleByVin = null;
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM vehicles WHERE VIN = ?")
+        ){
+            // No parameters needed for SELECT ALL
+            preparedStatement.setString(1,Vin);
+
+            try(ResultSet result = preparedStatement.executeQuery()){
+
+                if(result.next()){
+
+                    do{
+                        String VIN = result.getString("VIN");
+                        int year = result.getInt("Vehicle_Year");
+                        String make = result.getString("Make");
+                        String model = result.getString("Model");
+                        String vehicleType = result.getString("VehicleType");
+                        String color = result.getString("Color");
+                        int odometer = result.getInt("Odometer");
+                        double price = result.getDouble("Price");
+                        int sold = result.getInt("Sold");
+
+
+                          vehicleByVin = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold);
+                    }
+                    while(result.next());
+                } else {
+                    System.out.println("No vehicles in inventory!");
+
+                }
+            }
+        }
+        return vehicleByVin;
+    }
+
     public void removeVehicle(String vin)throws SQLException{
 
         try(
@@ -331,7 +369,7 @@ public class VehicleDao {
 
         }
     }
-    
+
     public void addVehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold) throws SQLException {
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold)\n" +

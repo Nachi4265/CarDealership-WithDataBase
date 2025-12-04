@@ -2,6 +2,7 @@ package pluralsight;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import pluralsight.models.Dealership;
+import pluralsight.models.SalesContract;
 import pluralsight.persistance.DealershipDao;
 import pluralsight.persistance.LeaseContractDao;
 import pluralsight.persistance.SalesContractDao;
@@ -20,10 +21,11 @@ public class Main {
         try{
 
             BasicDataSource dataSource = getDataSource(args);
+
             VehicleDao vehicleDao = new VehicleDao(dataSource);
             DealershipDao dealershipDao = new DealershipDao(dataSource);
             LeaseContractDao leaseContractDao = new LeaseContractDao(dataSource);
-            SalesContractDao salesContractDao = new SalesContractDao(dataSource);
+            SalesContractDao salesContractDao = new SalesContractDao(dataSource,vehicleDao);
 
             DealershipConsoleApp app = new DealershipConsoleApp(dataSource,dealershipDao,leaseContractDao,salesContractDao,vehicleDao);
 

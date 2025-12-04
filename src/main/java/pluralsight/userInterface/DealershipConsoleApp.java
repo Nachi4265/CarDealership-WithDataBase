@@ -6,10 +6,9 @@ import pluralsight.persistance.DealershipDao;
 import pluralsight.persistance.LeaseContractDao;
 import pluralsight.persistance.SalesContractDao;
 import pluralsight.persistance.VehicleDao;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class DealershipConsoleApp {
 
@@ -316,10 +315,10 @@ public class DealershipConsoleApp {
 
             System.out.println("HERE IS A FULL LIST OF VEHICLES!");
             System.out.println("---------------------------------");
-            vehicleDao.getAllVehicles();
+            vehicleDao.displayVehiclesHelper(vehicleDao.getAllVehicles());
             System.out.println("---------------------------------");
 
-            String vin = InputCollector.promptForString("Enter vehicle VIN you want to sell: ");
+            String vin = InputCollector.promptForString("Enter vehicle VIN you want to sell ");
 
             salesContractDao.SalesContract(vin);
 
@@ -335,12 +334,15 @@ public class DealershipConsoleApp {
 
             System.out.println("HERE IS A FULL LIST OF VEHICLES!");
             System.out.println("---------------------------------");
-            vehicleDao.getAllVehicles();
+            vehicleDao.displayVehiclesHelper(vehicleDao.getAllVehicles());
             System.out.println("---------------------------------");
 
-            String vin = InputCollector.promptForString(" Enter vehicle VIN you want to lease : ");
+            String vin = InputCollector.promptForString(" Enter vehicle VIN you want to lease ");
+            String customerName = InputCollector.promptForString("What is the customer name? ");
+            String customerEmail = InputCollector.promptForString("Enter customer email ");
 
-            salesContractDao.SalesContract(vin);
+            leaseContractDao.leaseContract(vin,customerName,customerEmail);
+
 
         }catch (SQLException e ){
             System.out.println("Error: " +  e.getMessage());
