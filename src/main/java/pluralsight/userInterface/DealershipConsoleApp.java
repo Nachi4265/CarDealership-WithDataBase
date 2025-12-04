@@ -93,8 +93,6 @@ public class DealershipConsoleApp {
                     break;
             }
         }
-
-
     }
 
 
@@ -205,9 +203,6 @@ public class DealershipConsoleApp {
             System.out.println("Error: " +  e.getMessage());
             e.printStackTrace();
         }
-
-
-
 //        //LAMBDA EXPRESSION
 //
 //        //New list for us to store our Vehicles
@@ -235,7 +230,6 @@ public class DealershipConsoleApp {
             System.out.println("Error: " +  e.getMessage());
             e.printStackTrace();
         }
-
     }
 
 
@@ -263,10 +257,6 @@ public class DealershipConsoleApp {
             System.out.println("Error: " +  e.getMessage());
             e.printStackTrace();
         }
-
-
-
-
 //        DealershipFileManager dealershipFileManager = new DealershipFileManager();
 //        dealershipFileManager.saveDealership(dealership);
 
@@ -274,24 +264,22 @@ public class DealershipConsoleApp {
 
     public void processRemoveVehicleRequest() {
 
-        //Put in the information of the vehicle we want to remove
-//        int VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
-//
-//        boolean found = false;
-//
-//        for(Vehicle v : vehicleDao.getAllVehicles()){
-//            if(VIN == v.getVIN()){
-//                found = true;
-//                dealership.remove(v);
-//                System.out.println("Vehicle Removed!");
-//                this.dealershipFileManager.saveDealership(dealership);
-//                break;
-//            }
-//        }
-//
-//        if( found == false){
-//            System.out.println("Could not find that Vehicles VIN");
-//        }
+        try{
+
+            System.out.println("===DELETE VEHICLE FROM DEALERSHIP!===");
+            String VIN  = InputCollector.promptForString("What is the vehicle VIN number");
+
+            vehicleDao.removeVehicle(VIN);
+
+        }catch (SQLException e ){
+            System.out.println("Error: " +  e.getMessage());
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 
 

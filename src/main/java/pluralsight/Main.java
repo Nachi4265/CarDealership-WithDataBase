@@ -54,7 +54,7 @@ public class Main {
         basicDataSource.setUsername(userName);
         basicDataSource.setPassword(password);
 
-        // Print what we're trying to connect to (for debugging)
+        // Print what we're trying to connect
         System.out.println("Attempting to connect to database...");
         System.out.println("URL: " + URL);
         System.out.println("Username: " + userName);
@@ -66,10 +66,10 @@ public class Main {
 
         // Test the connection
         try (Connection connection = basicDataSource.getConnection()) {
-            System.out.println("✓ Database connection successful!");
+            System.out.println("Database connection successful!");
             System.out.println("Connected to: " + connection.getCatalog());
         } catch (SQLException e) {
-            System.err.println("\n✗ DATABASE CONNECTION FAILED!");
+            System.err.println("\n DATABASE CONNECTION FAILED!");
             System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
         }

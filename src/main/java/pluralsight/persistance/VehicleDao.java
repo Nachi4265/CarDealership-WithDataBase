@@ -315,8 +315,21 @@ public class VehicleDao {
         return vehicles;
     }
 
+    public void removeVehicle(String vin)throws SQLException{
 
-    //todo fix connection
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM vehicles WHERE VIN = ? ")
+        ){
+
+            preparedStatement.setString(1 ,vin);
+            // Execute the preparedStatement
+            int rows = preparedStatement.executeUpdate();
+            System.out.printf("Rows updated %d\n", rows);
+
+        }
+    }
+
     public void addVehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold) throws SQLException {
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold)\n" +
@@ -324,7 +337,7 @@ public class VehicleDao {
         ){
 
             preparedStatement.setString(1, vin);
-            preparedStatement.setInt(2, year);  // Assuming this is Vehicle_Year
+            preparedStatement.setInt(2, year);
             preparedStatement.setString(3, make);
             preparedStatement.setString(4, model);
             preparedStatement.setString(5, vehicleType);
@@ -332,8 +345,6 @@ public class VehicleDao {
             preparedStatement.setInt(7, odometer);
             preparedStatement.setDouble(8, price);
             preparedStatement.setInt(9, sold);
-
-            preparedStatement.executeUpdate();
 
             //execute the query
             int rows  = preparedStatement.executeUpdate();
