@@ -51,7 +51,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -60,9 +60,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold);
                         vehicles.add(vehicle);
                     }
 
@@ -93,7 +93,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -102,9 +102,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold);
                         vehicles.add(vehicle);
                     }
 
@@ -136,7 +136,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -145,9 +145,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold);
                         vehicles.add(vehicle);
                     }
 
@@ -176,7 +176,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -185,9 +185,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, vehicleColor, odometer, price, sold, saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, vehicleColor, odometer, price, sold);
                         vehicles.add(vehicle);
                     }
                     while(result.next());
@@ -216,7 +216,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -225,9 +225,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold, saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold);
                         vehicles.add(vehicle);
                     }
                     while(result.next());
@@ -254,7 +254,7 @@ public class VehicleDao {
                     System.out.println("Your matches are: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -263,9 +263,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN, year, make, model, type, color, odometer, price, sold, saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, type, color, odometer, price, sold);
                         vehicles.add(vehicle);
                     }
                     while(result.next());
@@ -292,7 +292,7 @@ public class VehicleDao {
                     System.out.println("All vehicles: \n");
 
                     do{
-                        long VIN = result.getLong("VIN");
+                        String VIN = result.getString("VIN");
                         int year = result.getInt("Vehicle_Year");
                         String make = result.getString("Make");
                         String model = result.getString("Model");
@@ -301,9 +301,9 @@ public class VehicleDao {
                         int odometer = result.getInt("Odometer");
                         double price = result.getDouble("Price");
                         int sold = result.getInt("Sold");
-                        String saleDate = result.getString("saleDate");
 
-                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold, saleDate);
+
+                        Vehicle vehicle = new Vehicle(VIN, year, make, model, vehicleType, color, odometer, price, sold);
                         vehicles.add(vehicle);
                     }
                     while(result.next());
@@ -317,13 +317,13 @@ public class VehicleDao {
 
 
     //todo fix connection
-    public void addVehicle(long vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold, String saleDate) throws SQLException {
+    public void addVehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int sold) throws SQLException {
         try(Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold, saleDate)\n" +
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO vehicles(VIN, Vehicle_Year, Make, Model, VehicleType, Color, Odometer, Price, Sold)\n" +
                     "VALUES( ?, ? , ? , ? , ? , ? , ? , ? , ? );");
         ){
 
-            preparedStatement.setLong(1, vin);
+            preparedStatement.setString(1, vin);
             preparedStatement.setInt(2, year);  // Assuming this is Vehicle_Year
             preparedStatement.setString(3, make);
             preparedStatement.setString(4, model);
@@ -332,7 +332,6 @@ public class VehicleDao {
             preparedStatement.setInt(7, odometer);
             preparedStatement.setDouble(8, price);
             preparedStatement.setInt(9, sold);
-            preparedStatement.setString(10,saleDate);
 
             preparedStatement.executeUpdate();
 
@@ -342,7 +341,5 @@ public class VehicleDao {
             //confirm update
             System.out.printf("Rows updated %d\n ",rows);
         }
-
-
     }
 }

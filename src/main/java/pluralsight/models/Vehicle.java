@@ -5,7 +5,7 @@ import java.util.Date;
 public class Vehicle {
 
     //Private class variables
-    private long VIN;
+    private String VIN;
     private int year;
     private String make;
     private String model;
@@ -14,11 +14,10 @@ public class Vehicle {
     private int odometer;
     private double price;
     private int sold;
-    private String saleDate;
 
 
     //CONSTRUCTOR
-    public Vehicle(long VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price,int sold , String saleDate) {
+    public Vehicle(String VIN, int year, String make, String model, String vehicleType, String color, int odometer, double price,int sold ) {
         this.VIN = VIN;
         this.year = year;
         this.make = make;
@@ -28,17 +27,17 @@ public class Vehicle {
         this.odometer = odometer;
         this.price = price;
         this.sold = sold;
-        this.saleDate = saleDate;
+
     }
 
 
 
     //GETTERS AND SETTERS.
-    public long getVIN() {
+    public String getVIN() {
         return VIN;
     }
 
-    public void setVIN(long VIN) {
+    public void setVIN(String VIN) {
         this.VIN = VIN;
     }
 
@@ -106,13 +105,6 @@ public class Vehicle {
         this.sold = sold;
     }
 
-    public String getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(String saleDate) {
-        this.saleDate = saleDate;
-    }
 
     @Override
     public String toString() {
@@ -124,8 +116,8 @@ public class Vehicle {
                 + " | " + getColor()
                 + " | " + getOdometer()
                 + " | " + getPrice()
-                + " | " + getSold()
-                + " | " + getSaleDate();
+                + " | " + getSold();
+
     }
 
 

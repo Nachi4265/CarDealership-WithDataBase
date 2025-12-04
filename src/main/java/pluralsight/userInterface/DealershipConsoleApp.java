@@ -247,7 +247,7 @@ public class DealershipConsoleApp {
 
             System.out.println("===ENTER VEHICLE TO DEALERSHIP!===");
 
-            long VIN  = InputCollector.promptForInt("What is the vehicle VIN number");
+            String VIN  = InputCollector.promptForString("What is the vehicle VIN number");
             int year = InputCollector.promptForInt("What is the Year of your vehicle");
             String make = InputCollector.promptForString("What is the vehicle make?");
             String model = InputCollector.promptForString("What is the vehicle model?");
@@ -256,9 +256,8 @@ public class DealershipConsoleApp {
             int odometer = InputCollector.promptForInt("What is the mileage of the vehicle");
             double price = InputCollector.promptForDouble("What is your asking price for the vehicle");
             int sold = InputCollector.promptForInt("Enter 0 if not Sold , Enter 1 if sold");
-            String date = String.valueOf(InputCollector.promptForDate("What is the Date it was acquired? "));
 
-            vehicleDao.addVehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold,date);
+            vehicleDao.addVehicle(VIN,year,make,model,vehicleType,color,odometer,price,sold);
 
         }catch (SQLException e){
             System.out.println("Error: " +  e.getMessage());
